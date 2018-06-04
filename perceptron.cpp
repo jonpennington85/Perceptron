@@ -19,35 +19,30 @@
 
 using namespace std;
 
-Perceptron::Perceptron() {
-
-}
-
-Perceptron::~Perceptron() {
-
-}
+Perceptron::Perceptron(){}
+Perceptron::~Perceptron(){}
 
 vector<double> Perceptron::train(vector<vector<double>> trainingData,vector<double> medVs, vector<double> current_weights){
-    vector<double> updated_weights=current_weights;
-    int training_size=trainingData.size();
+	vector<double> updated_weights=current_weights;
+	int training_size=trainingData.size();
 
-    // Train all our data, updating the weights each time
+	// Train all our data, updating the weights each time
 	for(int i=0;i<training_size;i++){
-        updated_weights=train_step(trainingData[i],medVs[i],updated_weights);
-    }
-    return updated_weights;
+		updated_weights=train_step(trainingData[i],medVs[i],updated_weights);
+	}
+	return updated_weights;
 }
 
 vector<double> Perceptron::train_step(vector<double> x, int y, vector<double> weights) {
 	vector<double> new_weights=weights;
-    int y_hat;
+	int y_hat;
 	double delta;
 
-    y_hat=predict(x,weights);
-    delta=calc_delta(y,y_hat);
-    new_weights=update_weights(weights,x,delta);
+	y_hat=predict(x,weights);
+	delta=calc_delta(y,y_hat);
+	new_weights=update_weights(weights,x,delta);
 
-    return new_weights;
+	return new_weights;
 }
 
 int Perceptron::predict(vector<double> x,vector<double> weights){

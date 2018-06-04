@@ -19,13 +19,8 @@
 
 using namespace std;
 
-Preparation::Preparation() {
-
-}
-
-Preparation::~Preparation() {
-
-}
+Preparation::Preparation(){}
+Preparation::~Preparation(){}
 
 vector<vector<double>> Preparation::processCSV(string fileName){
 	vector<vector<double>> recordVector;
@@ -34,7 +29,7 @@ vector<vector<double>> Preparation::processCSV(string fileName){
 	ifstream csv;
 	string line;
 
-    // Open our csv file
+	// Open our csv file
 	csv.open(fileName);
 	if(!csv){
 		perror("Unable to open file");
