@@ -1,5 +1,5 @@
 CC=g++
-FLAGS =-Wall -Wpedantic -c
+FLAGS =-Wall -Wpedantic --std=c++11 -c
 
 all: perceptron
 
