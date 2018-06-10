@@ -39,8 +39,8 @@ int main(int argc, char ** argv){
 
 	// Check for options on the command line
 	if(argc<2){
-		cout<<"Usage: <program> <options> <number of epochs>\n";
-		cout<<"Available options are: --shuffle (default) and --no-shuffle\n";
+		cout<<"Usage: <program> <options> <number of epochs>"<<endl;
+		cout<<"Available options are: --shuffle (default) and --no-shuffle"<<endl;
 		exit(-1);
 	}
 
@@ -48,14 +48,14 @@ int main(int argc, char ** argv){
 	shuf=is_shuf(argc,argv);
 
 	if((epochs=atoi(argv[argc-1]))==0){
-		cout<<"Please choose an epoch size greater than zero\n";
-		cout<<"Usage: <program> <options> <number of epochs>\n";
-		cout<<"Available options are: --shuffle (default) and --no-shuffle\n";
+		cout<<"Please choose an epoch size greater than zero"<<endl;
+		cout<<"Usage: <program> <options> <number of epochs>"<<endl;
+		cout<<"Available options are: --shuffle (default) and --no-shuffle"<<endl;
 		exit(-1);
 	}
 
 	// Let them know what we're doing
-	cout<<"Running Perceptron with "<< epochs << " epochs\n";
+	cout<<"Running Perceptron with "<< epochs << " epochs"<<endl;
 
 	// Create the objects Preppy the Preparation and Percy the Perceptron
 	Preparation Preppy;
@@ -92,7 +92,6 @@ int main(int argc, char ** argv){
 
 		// Train, updating weights
 		weights=Percy.train(trainingNoMedv,medvs,weights);
-
 	}
 
 	testing_size=testingVector.size();
@@ -111,7 +110,7 @@ int main(int argc, char ** argv){
 		}
 		else wrong++;
 	}
-	cout<<"We were right "<<((double)right/(double)((double)right+(double)wrong)*(double)100) <<"% of the time\n";
+	cout<<"We were right "<<((double)right/(double)((double)right+(double)wrong)*(double)100) <<"% of the time"<<endl;
 	return 0;
 }
 
