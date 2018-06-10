@@ -15,6 +15,7 @@
  * Written by Jonathan Pennington
  */
 
+#include "driver.h"
 #include "preparation.h" // lol
 #include "perceptron.h"
 
@@ -34,15 +35,22 @@ int main(int argc, char ** argv){
 	int prediction;
 	int right;
 	int wrong;
+	bool shuf;
 
-	// Check for epochs on the command line
-	if(argc!=2){
-		cout<<"Usage: <program> <number of epochs>\n";
+	// Check for options on the command line
+	if(argc<2){
+		cout<<"Usage: <program> <options> <number of epochs>\n";
+		cout<<"Available options are: --shuffle (default) and --no-shuffle\n";
 		exit(-1);
 	}
 
-	if((epochs=atoi(argv[1]))==0){
+	// Do we shuffle records?
+	shuf=is_shuf(argc,argv);
+
+	if((epochs=atoi(argv[argc-1]))==0){
 		cout<<"Please choose an epoch size greater than zero\n";
+		cout<<"Usage: <program> <options> <number of epochs>\n";
+		cout<<"Available options are: --shuffle (default) and --no-shuffle\n";
 		exit(-1);
 	}
 
@@ -75,8 +83,8 @@ int main(int argc, char ** argv){
 
 	for(int i=0;i<epochs;i++){
 
-		// Shuffle Vector everytime we train
-		shuffle(begin(trainingVector), end(trainingVector), randy);
+		// Shuffle Vector everytime we train (unless --no-shuffle option is specified)
+		if(shuf) shuffle(begin(trainingVector), end(trainingVector), randy);
 
 		// Separate mean from training data
 		medvs=Preppy.gatherMedVs(trainingVector);
@@ -106,3 +114,24 @@ int main(int argc, char ** argv){
 	cout<<"We were right "<<((double)right/(double)((double)right+(double)wrong)*(double)100) <<"% of the time\n";
 	return 0;
 }
+
+bool is_shuf(int argc, char ** argv){
+
+        int *int_addr=NULL;
+        int is_shuf;
+        struct option long_options[] ={
+                {"no-shuffle",no_argument,NULL,0},
+                {"shuffle",no_argument,NULL,1},
+                {NULL,0,NULL,0}
+        };
+        // Shuffle by default
+        bool shuf=true;
+
+        while((is_shuf=getopt_long_only(argc,argv,"",long_options,int_addr))!=-1){
+                if(!is_shuf) shuf=false;
+                else if(is_shuf) shuf=true;
+        }
+
+        return shuf;
+}
+
